@@ -18,24 +18,39 @@ namespace OOP_3
             Reports(accounts, "Opening Report");
 
             // Do some transactions
-            accounts[0].Withdraw(150);
-            Console.WriteLine($"{accounts[0].Name}: Withdraw $150");
+            Transaction(accounts, "Dopey", "Withdraw", 150);
+            Transaction(accounts, "Sleepy", "Deposit", 100);
+            Transaction(accounts, "Sneezy", "Withdraw", 350);
+            
+            Reports(accounts, "\nClosing Report");
+        }
 
-            accounts[1].Deposit(100);
-            Console.WriteLine($"{accounts[1].Name}: Deposit $100");
+        static void Transaction(List<Account3> accts, string acctName, string transactType, decimal transactAmt)
+        {
+            // Find the index for the account name
+            int i;
+            for (i = 0; i < accts.Count; i++)
+                if (accts[i].Name == acctName)
+                    break;
 
             try
             {
-                accounts[2].Withdraw(375);
-                Console.WriteLine($"{accounts[2].Name}: Withdraw $375");
+                if (transactType == "Deposit")
+                {
+                    accts[i].Deposit(transactAmt);
+                    Console.WriteLine($"{accts[i].Name}: Deposit {transactAmt:C}");
+                }
+                else
+                {
+                    accts[i].Withdraw(transactAmt);
+                    Console.WriteLine($"{accts[i].Name}: Withdraw {transactAmt:C}");
+                }
             }
             catch (ArgumentOutOfRangeException e)
             {
-                Console.WriteLine($"{accounts[2].Name}: {e.ParamName}");
-                Console.WriteLine($"Requested withdrawl: $375.00 / Account Balance: {accounts[2].Balance:C}");
+                Console.WriteLine($"{accts[i].Name}: {e.ParamName}");
+                Console.WriteLine($"\tRequested {transactType}: {transactAmt:C} / Account Balance: {accts[2].Balance:C}");
             }
-
-            Reports(accounts, "\nClosing Report");
         }
 
         static void Reports(List<Account3> accts, string heading)
