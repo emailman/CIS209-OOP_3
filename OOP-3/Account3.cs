@@ -23,7 +23,7 @@ namespace OOP_3
             if (Balance - amt >= 0)
                 Balance -= amt;
             else
-                throw new ArgumentOutOfRangeException("Can't withdaw more than balance");
+                throw new ArgumentOutOfRangeException("Can't withdraw more than balance");
         }
 
         override public string ToString()
